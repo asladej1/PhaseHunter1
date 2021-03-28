@@ -23,18 +23,29 @@ class Game:
     
     def start(self):
         self.welcome()
-        print(f'Number missed: {self.missed}')
-        self.active_phrase.display(self.guesses)
-        self.get_guess()
-        self.user_guess = self.get_guess()
-        print(self.user_guess)
-        self.guesses.append(self.user_guess)
+        while self.missed < 5 and self.active_phrase.check_complete(self.guesses) == False:
+          print(f'Number missed: {self.missed}')
+          self.active_phrase.display(self.guesses)
+          user_guess = self.get_guess()
+          self.guesses.append(user_guess)
+          if not self.active_phrase.check_guess(user_guess):
+            self.missed += 1
+          self.active_phrase.check_complete(self.guesses)
+        self.game_over()
         
+    def game_over(self):
+      if self.missed == 5:
+        print("Sorry, Game Over...")
+      else:
+        print("You guessed it right! Congratualations!")
         
         
     def get_guess(self):
-        self.guess = input('Please enter letter: ')
-        return self.guess
+        try:
+          self.guess = input('Please enter letter: ')
+          return self.guess
+        
+        except
         
     
         
